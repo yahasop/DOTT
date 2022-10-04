@@ -62,17 +62,18 @@ curl localhost/ip-validation?value=255.255.0.0
 ### CI/CD Pipeline
 - [ ] Jenkins
     - [ ] Webhook
-- [ ] Sonar Qube
+- [ ] SonarQube
     - [ ] (Plus) Linting
     - [ ] Static Code Analysis
 - [ ] Testing
     - [ ] Unit testing
-    - [ ] Functional Tesging(plus)
+    - [ ] (Plus) Functional Testing
 - [ ] Deployment
     - [ ] In case your app requires extra infra it will be a Plus
 - [ ] (Plus) Docker
-- [ ] (Plus) Seguridad
+- [ ] (Plus) Security Testing
 - [ ] (Plus) Fix Code
+- [ ] Security Best Pratices
 
 ### Techincal Diagram 
 - [ ] Processes
