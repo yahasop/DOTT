@@ -36,7 +36,10 @@ pipeline {
 			dir(path: 'go'){
 				catchError(message: 'failed unit tests', catchInterruptions: true, buildResult: 'SUCCESS', stageResult: 'SUCCESS'){
 					sh 'go test .'
-			
+					sh '''pwd
+					ls
+					ls ../
+					'''
 				}
                 
 			}
