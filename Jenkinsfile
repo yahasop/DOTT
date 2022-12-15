@@ -11,14 +11,6 @@ pipeline {
             }
         }
         
-        stage('SonarQube Scanning') {
-            steps {
-                def scannerHome = tool 'sonarqube-scanner';
-                withSonarQubeEnv('sonarcloud') { // If you have configured more than one global server connection, you can specify its name
-                    sh "${scannerHome}/bin/sonar-scanner"
-                    sh 'echo "Still working in this"'
-            }
-        }
         
         stage('Build') {
             steps {
@@ -28,6 +20,26 @@ pipeline {
                     sh 'go get -u github.com/gorilla/mux'
                     sh 'go build api.go convert.go'
                 }
+            }
+        }
+
+        stage('SonarQube Scanning') {
+            steps {
+                sh 'echo "Still working in this"'
+            }
+        }
+
+        stage('Test'){
+		    steps{
+                dir(path: 'go'){
+                    sh 'go test .'
+                }
+            }
+        }
+
+        stage('Deployment'){
+            steps{
+                sh 'echo "Deployment Process"'
             }
         }
     }
