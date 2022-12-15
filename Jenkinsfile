@@ -34,7 +34,7 @@ pipeline {
         stage('Test'){
 		steps {
 			dir(path: 'go'){
-				catchError(message: 'failed unit tests', catchInterruptions: true, buildResult: 'SUCCESS', stageResult: 'SUCCESS'){
+				catchError(message: 'Unit testing failed', catchInterruptions: true, buildResult: 'SUCCESS', stageResult: 'SUCCESS'){
 					sh 'go test .'
 
 				}
