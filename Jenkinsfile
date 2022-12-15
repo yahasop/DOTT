@@ -16,8 +16,10 @@ pipeline {
             steps {
                 dir(path: 'go') {
                     //sh 'go mod init'
-                    sh 'go env -w GO111MODULE=off'
+                    sh 'go env -w GO111MODULE=off'		    
                     sh 'go get -u github.com/gorilla/mux'
+		    sh 'go get github.com/stretchr/testify/assert'
+		    sh 'go get github.com/Pepegasca/goop'
                     sh 'go build api.go convert.go'
                 }
             }
