@@ -18,11 +18,11 @@ pipeline {
         stage('Build') {
             steps {
                 dir(path: 'go') {
-		    sh 'rm go.mod'
+		    sh 'rm go.mod' //This will remove the go.mod file if there's a previuos build.
 		    sh 'go env -w GO111MODULE=auto'
-                    sh 'go mod init dott' //This initializes a module for the application 
-		    sh 'go mod tidy' //This download all the dependencies required in the source files
-		    sh 'go build' //This build and package the application through the module declared in mod init, it results in the artifact
+                    sh 'go mod init dott' //This initializes a module for the application.
+		    sh 'go mod tidy' //This download all the dependencies required in the source files.
+		    sh 'go build' //This build and package the application through the module declared in mod init, it results in the artifact.
 		    
 		    // I also have this code but the one I keep worked better
                     //sh 'go env -w GO111MODULE=off'		    
@@ -44,7 +44,7 @@ pipeline {
 		steps {
 			dir(path: 'go'){
 				catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Unit testing failed, but continued to next step'){
-					sh 'go test . | tee go-test' //This show the stdout in the console and then copy it into a file called go-test
+					sh 'go test . | tee go-test' //This show the stdout in the console and then copy it into a file called go-test.
 				}
 			}        
 		}     
@@ -52,11 +52,12 @@ pipeline {
 
         stage('Deployment'){
             steps{
-		    sh 'sudo docker build go/. -t goapp'
-		    sh 'sudo docker images'
+		    sh 'chmod 777 /var/run/docker.sock' //I know this is not recommended at all but I want to run docker without provisioning credentials or adding jenkins to sudoers or adding docker group.
+		    sh 'docker build go/. -t goapp'
+		    sh 'docker images'
 		    withDockerRegistry(credentialsId: 'dockerhubcreds', /*toolName: 'docker',*/ url: 'https://hub.docker.com/') {
 			    //sh 'docker login'
-			    sh 'sudo docker push goapp'
+			    sh 'docker push goapp'
 		}
             }
         }
