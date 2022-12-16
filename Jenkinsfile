@@ -17,7 +17,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(path: 'go') {
-		    sh 'go env -w GO111MODULE=auto
+		    sh 'go env -w GO111MODULE=auto'
                     sh 'go mod init dott' //This initializes a module for the application 
 		    sh 'go mod tidy' //This download all the dependencies required in the source files
 		    sh 'go build' //This build and package the application through the module declared in mod init, it results in the artifact
