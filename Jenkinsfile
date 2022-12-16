@@ -52,19 +52,27 @@ pipeline {
 
         stage('Deployment'){
             steps{
-		    sh 'sudo chown $USER /var/run/docker.sock'
+		    /*sh 'sudo chown $USER /var/run/docker.sock'
 		    sh 'chmod 777 /var/run/docker.sock' //I know this is not recommended at all but I want to run docker without provisioning credentials or adding jenkins to sudoers or adding docker group.
 		    sh 'sudo gpasswd -a jenkins root'
 		    sh 'sudo service docker restart'
 		    sh 'sudo usermod -aG docker jenkins'
-		    sh 'reboot'
+		    sh 'reboot'*/
+		    
 		    sh 'docker build go/. -t goapp'
 		    sh 'docker images'
-		    withDockerRegistry(credentialsId: 'dockerhubcreds', /*toolName: 'docker',*/ url: 'https://hub.docker.com/') {
-			    //sh 'docker login'
+		    
+		    withDockerRegistry(credentialsId: 'dockerhubcreds', usernameVariable: 'dockerHubPassword', passwordVariable: 'dockerHubUser' url: 'https://hub.docker.com/') {
+			    sh "docker login -u${env.dockerHubUser} -p ${env.dockerHubPassword}"
 			    sh 'docker push goapp'
-		}
-            }
-        }
-    }
+		    } 
+		    
+		    withCredentials([usernamePassword(credentialsId: 'dockerhubcreds', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+			    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+			    sh 'docker push goapp'
+		    }  
+	    }
+	}		
+    }    
 }
+
