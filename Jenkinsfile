@@ -51,7 +51,11 @@ pipeline {
 
         stage('Deployment'){
             steps{
-                sh 'echo "Deployment Process"'
+		    sh 'docker build go/. -t goapp'
+		    withDockerRegistry(credentialsId: 'dockerhubcreds', toolName: 'docker', url: 'https://hub.docker.com/') {
+			    sh 'docker login'
+			    sh 'docker push goapp'
+		}
             }
         }
     }
