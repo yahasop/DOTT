@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpinelinux/golang:latest
 
 RUN apk update
 RUN apk upgrade
