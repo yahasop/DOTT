@@ -51,11 +51,11 @@ pipeline {
 
         stage('Deployment'){
             steps{
-		    sh 'docker build go/. -t goapp'
-		    sh 'docker images'
+		    sh 'sudo docker build go/. -t goapp'
+		    sh 'sudo docker images'
 		    withDockerRegistry(credentialsId: 'dockerhubcreds', /*toolName: 'docker',*/ url: 'https://hub.docker.com/') {
 			    //sh 'docker login'
-			    sh 'docker push goapp'
+			    sh 'sudo docker push goapp'
 		}
             }
         }
