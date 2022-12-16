@@ -54,10 +54,9 @@ pipeline {
             	
 		steps{	
 			dir(path: 'go') {
-					
-				sh '''
-				timeout 10s ./dott
-				'''
+				catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Application forced to stop after 10 seconds'){	
+					sh 'timeout 10s ./dott'
+				}
 			}
 		}
 	}		
