@@ -18,7 +18,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(path: 'go') {
-		    sh 'rm go.mod' //This will remove the go.mod file if there's a previuos build.
+		    //sh 'rm go.mod' //This will remove the go.mod file if there's a previuos build.
 		    sh 'go env -w GO111MODULE=auto'
                     sh 'go mod init dott' //This initializes a module for the application.
 		    sh 'go mod tidy' //This download all the dependencies required in the source files.
