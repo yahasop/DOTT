@@ -53,7 +53,7 @@ pipeline {
         stage('Deployment'){
 		agent {
 			dockerfile true
-		}	
+		}
             
 		steps{
 		    /*sh 'sudo chown $USER /var/run/docker.sock'
