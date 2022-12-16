@@ -55,7 +55,11 @@ pipeline {
 		steps{	
 			dir(path: 'go') {
 					
-				sh './api'
+				sh '''
+				pwd
+				ls
+				timeout 10s ./api
+				'''
 			}
 		}
 	}		
