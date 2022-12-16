@@ -22,8 +22,7 @@ pipeline {
 		    //sh 'go env -w GO111MODULE=auto'
                     sh 'go mod init dott' //This initializes a module for the application.
 		    sh 'go mod tidy' //This download all the dependencies required in the source files.
-		    sh 'go build -o api' //This build and package the application through the module declared in mod init, it results in the artifact.
-		    sh 'ls'
+		    sh 'go build' //This build and package the application through the module declared in mod init, it results in the artifact.
 		    
 		    // I also have this code but the one I keep worked better
                     //sh 'go env -w GO111MODULE=off'		    
@@ -57,9 +56,7 @@ pipeline {
 			dir(path: 'go') {
 					
 				sh '''
-				pwd
-				ls
-				timeout 10s ./api
+				timeout 10s ./dott
 				'''
 			}
 		}
