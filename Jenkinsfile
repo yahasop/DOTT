@@ -18,6 +18,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(path: 'go') {
+		    sh 'rm go.mod'
 		    sh 'go env -w GO111MODULE=auto'
                     sh 'go mod init dott' //This initializes a module for the application 
 		    sh 'go mod tidy' //This download all the dependencies required in the source files
