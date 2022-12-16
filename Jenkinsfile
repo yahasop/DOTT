@@ -62,7 +62,7 @@ pipeline {
 		    sh 'docker build go/. -t goapp'
 		    sh 'docker images'
 		    
-		    withDockerRegistry(credentialsId: 'dockerhubcreds', usernameVariable: 'dockerHubPassword', passwordVariable: 'dockerHubUser' url: 'https://hub.docker.com/') {
+		    /*withDockerRegistry(credentialsId: 'dockerhubcreds', usernameVariable: 'dockerHubPassword', passwordVariable: 'dockerHubUser' url: 'https://hub.docker.com/') {
 			    sh "docker login -u${env.dockerHubUser} -p ${env.dockerHubPassword}"
 			    sh 'docker push goapp'
 		    } 
@@ -70,7 +70,7 @@ pipeline {
 		    withCredentials([usernamePassword(credentialsId: 'dockerhubcreds', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 			    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
 			    sh 'docker push goapp'
-		    }  
+		    }  */
 	    }
 	}		
     }    
