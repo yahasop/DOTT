@@ -51,8 +51,10 @@ pipeline {
 	}
 
         stage('Deployment'){		
-            	dir(path: 'go') {
-			steps{
+            	
+		steps{	
+			dir(path: 'go') {
+					
 				sh './api'
 			}
 		}
