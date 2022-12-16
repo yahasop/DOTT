@@ -52,7 +52,8 @@ pipeline {
 
         stage('Deployment'){
             steps{
-		    sh 'chmod 777 /var/run/docker.sock' //I know this is not recommended at all but I want to run docker without provisioning credentials or adding jenkins to sudoers or adding docker group.
+		    sh 'chown $USER /var/run/docker.sock'
+		    //sh 'chmod 777 /var/run/docker.sock' //I know this is not recommended at all but I want to run docker without provisioning credentials or adding jenkins to sudoers or adding docker group.
 		    //sh 'sudo gpasswd -a jenkins root'
 		    //sh 'sudo service docker restart'
 		    //sh 'sudo usermod -aG docker jenkins'
