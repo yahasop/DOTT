@@ -41,9 +41,8 @@ pipeline {
         stage('Test'){
 		steps {
 			dir(path: 'go'){
-				catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Unit testing failed', /*catchInterruptions: true*/){
-					//sh 'go test . >> test.txt' //This copy the standard output of the testing into a file
-					sh 'go test . '
+				catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Unit testing failed, but continued to next step'){
+					sh 'go test . | tee go-test' //This show the stdout in the console and then copy it into a file called go-test
 				}
 			}        
 		}     
