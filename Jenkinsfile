@@ -18,7 +18,11 @@ pipeline {
         stage('Build') {
             steps {
                 dir(path: 'go') {
-		    sh 'rm go.mod' //This will remove the go.mod file if in a previous build, this was created.
+					catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    // This step might fail, but the pipeline will continue
+                    sh 'rm go.mod' //This will remove the go.mod file if in a previous build, this was created.
+                }
+		    
 		    //sh 'go env -w GO111MODULE=auto' //This I have to enabled once, due in some build I have disabled it.
                     sh 'go mod init dott' //This initializes a module for the application.
 		    sh 'go mod tidy' //This download all the dependencies required in the source files.
