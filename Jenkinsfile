@@ -20,13 +20,13 @@ pipeline {
                 dir(path: 'go') {
 					catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     // This step might fail, but the pipeline will continue
-                    sh 'rm go.mod' //This will remove the go.mod file if in a previous build, this was created.
+                    	sh 'rm go.mod' //This will remove the go.mod file if in a previous build, this was created.
                 }
 		    
 		    //sh 'go env -w GO111MODULE=auto' //This I have to enabled once, due in some build I have disabled it.
                     sh 'go mod init dott' //This initializes a module for the application.
-		    sh 'go mod tidy' //This download all the dependencies required in the source files.
-		    sh 'go build' //This build and package the application through the module declared in mod init, it results in the artifact/executable.		    
+					sh 'go mod tidy' //This download all the dependencies required in the source files.
+		    		sh 'go build' //This build and package the application through the module declared in mod init, it results in the artifact/executable.		    
 		    
 		    // I also have this code but the one I keep worked better
                     //sh 'go env -w GO111MODULE=off'		    
@@ -60,7 +60,7 @@ pipeline {
 			dir(path: 'go') {
 				//This other catch error is because the application will never ended, that's why I set up a timeout of 5 min, but at the end of those, Jenkins interprets that forced stop as an error.
 				catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Application forced to stop'){	
-					sh 'timeout 5m ./dott'
+					sh 'gtimeout 5m ./dott'
 				}
 			}
 		}
