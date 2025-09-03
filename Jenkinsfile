@@ -32,7 +32,7 @@ pipeline {
         stage('SonarQube Scanning') {
             steps {
                 sh 'echo "I couldnt integrate SQ :("' //I have configured the SonarScanner tool and the Sonarqube Environment but I couldnt connect them.
-                sh 'echo docker ps'
+                sh 'docker ps'
             }
         }
 	
