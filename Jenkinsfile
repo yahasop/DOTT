@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
 	    //This declare my Go and tools to be downloaded in my Jenkins master in this case (or in the node if I configured one).
-            //dockerTool 'docker'
+        dockerTool 'docker-jenkins'
 	    go 'go-jenkins'
             //tool name: 'sonarqube-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     }
