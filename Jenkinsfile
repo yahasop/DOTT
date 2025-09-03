@@ -32,6 +32,7 @@ pipeline {
         stage('SonarQube Scanning') {
             steps {
                 sh 'echo "I couldnt integrate SQ :("' //I have configured the SonarScanner tool and the Sonarqube Environment but I couldnt connect them.
+                sh 'echo docker ps'
             }
         }
 	
@@ -51,11 +52,11 @@ pipeline {
                 dir(path: 'go') {
                     //This other catch error is because the application will never ended, that's why I set up a timeout of 5 min, but at the end of those, Jenkins interprets that forced stop as an error.
                     //catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Application forced to stop'){	
-                    sh "docker build -t dott:1.0 ."
+                    sh 'docker build -t dott:1.0 .'
                     //}
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', passwordVariable: 'DOCKER_PASSWD', usernameVariable: 'DOCKER_USER')]) {
-                    sh "echo \"$DOCKER_PASSWD\" | docker login -u \"$DOCKER_USER\" --password-stdin"
-                    sh "docker push yahasop/dott:1.0"
+                    sh 'echo \"$DOCKER_PASSWD\" | docker login -u \"$DOCKER_USER\" --password-stdin'
+                    sh 'docker push yahasop/dott:1.0'
                     }
                 }
             }
