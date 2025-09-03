@@ -1,10 +1,9 @@
-FROM alpinelinux/golang:latest
+FROM golang:tip-trixie
 
-RUN apk update
-RUN apk upgrade
-RUN mkdir /home/app/
+WORKDIR /app
 
-ADD . /home/app/
-COPY . /home/app/
+COPY ./* /app
 
-WORKDIR /home/app
+EXPOSE 8000
+
+CMD ["sh", "dott"]
