@@ -61,7 +61,7 @@ pipeline {
 				//This other catch error is because the application will never ended, that's why I set up a timeout of 5 min, but at the end of those, Jenkins interprets that forced stop as an error.
 				//catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Application forced to stop'){	
 				sh 'gtimeout 5m ./dott'
-				}
+				//}
 			}
 		}
 	}		
