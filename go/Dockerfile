@@ -1,9 +1,9 @@
-FROM golang:tip-alpine3.21
+FROM alpine:latest
 
 WORKDIR /app
 
-COPY ./* /app
+COPY ./dott /app
 
 EXPOSE 8000
 
-CMD ["sh", "dott"]
+CMD ["./dott"]
