@@ -1,4 +1,4 @@
-FROM golang:tip-trixie
+FROM golang:tip-alpine3.21
 
 WORKDIR /app
 
