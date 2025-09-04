@@ -2,7 +2,7 @@ FROM alpine:latest
 
 WORKDIR /app
 
-COPY ./dott /app
+COPY ./* /app
 
 EXPOSE 8000
 
