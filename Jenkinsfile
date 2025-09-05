@@ -50,17 +50,21 @@ pipeline {
         stage('Image Building'){		
             steps{	
                 dir(path: 'go') {
-                    //This other catch error is because the application will never ended, that's why I set up a timeout of 5 min, but at the end of those, Jenkins interprets that forced stop as an error.
-                    //catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Application forced to stop'){	
+	
                     sh 'docker build -t yahasop/dott:1.0 .'
-                    //}
+                    
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', passwordVariable: 'DOCKER_PASSWD', usernameVariable: 'DOCKER_USER')]) {
-                    sh 'echo \"$DOCKER_PASSWD\" | docker login -u \"$DOCKER_USER\" --password-stdin'
-                    sh 'docker push yahasop/dott:1.0'
+                        sh 'echo \"$DOCKER_PASSWD\" | docker login -u \"$DOCKER_USER\" --password-stdin'
+                        sh 'docker push yahasop/dott:1.0'
                     }
                 }
             }
-	    }		
+	    }
+        stage('Deployment'){
+            steps{
+                sh 'docker run -d --name dott -p 8000:8000 yahasop/dott:1.0'
+            }
+        }		
     }    
 }
 
